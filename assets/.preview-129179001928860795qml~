@@ -1,0 +1,56 @@
+import bb.cascades 1.0
+
+Page {
+    titleBar: TitleBar {
+        title: "List example"
+    }
+    Container {
+        ListView {
+            id: list
+            dataModel: XmlDataModel {
+                source: "models/palette.xml"
+            }
+            onTriggered: {
+                var item = dataModel.data(indexPath)
+                console.log(item.title)
+            }
+            listItemComponents: [
+                ListItemComponent {
+                    type: "category"
+                    Header {
+                        title: ListItemData.title
+                    }
+                },
+                ListItemComponent {
+                    type: "color"
+                    Container {
+                        preferredHeight: 150
+                        background: Color.create(ListItemData.hexColor)
+                        layout: DockLayout {
+                        }
+                        contextActions: [
+                            ActionSet {
+                                actions: [
+                                    ActionItem {
+                                        title: "Test"
+                                    },
+                                    ActionItem {
+                                        title: "Test2"
+                                    }
+                                ]
+                            }
+                        ]
+                        ListItem.onActivationChanged: 
+                        Label {
+                            text: ListItemData.title
+                            textStyle.color: Color.create(ListItemData.titleColor)
+                        }
+                        Divider {
+                            verticalAlignment: VerticalAlignment.Bottom
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

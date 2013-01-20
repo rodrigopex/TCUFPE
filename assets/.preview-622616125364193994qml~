@@ -1,0 +1,30 @@
+import bb.cascades 1.0
+
+TabbedPane {
+    showTabsOnActionBar: false
+    Tab {
+        title: "Tab1"
+        imageSource: "images/overflow.png"
+        Tab1 {
+        }
+    }
+    Tab {
+        title: "Tab2"
+        Tab2 {}
+    }
+    Tab {
+        title: "Tab3"
+        Page {
+        }
+    }
+    Tab {
+        title: "Tab4"
+        Page {
+        }
+    }
+    Tab {
+        title: "Tab5"
+        Page {
+        }
+    }
+}

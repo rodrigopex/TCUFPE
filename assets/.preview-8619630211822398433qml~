@@ -1,0 +1,74 @@
+import bb.cascades 1.0
+
+Page {
+    titleBar: TitleBar {
+        id: tb
+        title: "Hello world!"
+        dismissAction: ActionItem {
+            title: "Cancel"
+            onTriggered: {
+                cd.delegateActive = false
+            }
+        }
+        acceptAction: ActionItem {
+            title: "Load"
+            onTriggered: {
+                cd.delegateActive = true
+            }
+        }
+    }
+    attachedObjects: [
+        OrientationHandler {
+            onOrientationChanged: {
+                orientation
+            }
+        }
+    ]
+    Container {
+        layout: DockLayout {
+        }
+        background: bg.imagePaint
+        attachedObjects: [
+            ImagePaintDefinition {
+                id: bg
+                imageSource: "images/bg.png"
+                repeatPattern: RepeatPattern.XY
+            }
+        ]
+        Container {
+            layout: StackLayout {
+                //            orientation: LayoutOrientation.RightToLeft
+            }
+            horizontalAlignment: HorizontalAlignment.Fill
+            Label {
+                text: qsTr("Hello World!!!")
+                textStyle.base: SystemDefaults.TextStyles.BigText
+                //verticalAlignment: VerticalAlignment.Bottom
+                horizontalAlignment: HorizontalAlignment.Center
+            }
+            MyComponent {
+                id: mc1
+                bt2Name: "Batata"
+            }
+            MyComponent {
+                id: mc2
+                onChangeName: mc1.onSlot("1234")
+                onCreationCompleted: {
+                    mc1.bt2Name = "Batata2"
+                }
+            }
+        }
+        ControlDelegate {
+            id: cd
+            delegateActive: true
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Fill
+            source: "DownloadIndicator.qml"
+            //            sourceComponent: ComponentDefinition {
+            //                DownloadIndicator {
+            //                    id: di
+            //                }
+            //            }
+        }
+    }
+}
